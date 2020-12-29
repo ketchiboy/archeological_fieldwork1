@@ -49,7 +49,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
       if(placemark.date == ""){
         visiteddate.text= "not visited"
       }else{
-        visiteddate.text = "Visited date: " + placemark.date
+        visiteddate.text = placemark.date
       }
 
     }
@@ -67,7 +67,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
 
     chooseImage.setOnClickListener {
-      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date)
+      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date, additionalnotes.text.toString())
       presenter.doSelectImage()
     }
   }
@@ -76,7 +76,8 @@ class PlacemarkView : BaseView(), AnkoLogger {
     checkBox.isChecked = placemark.visited
     if (placemarkTitle.text.isEmpty()) placemarkTitle.setText(placemark.title)
     if (description.text.isEmpty())  description.setText(placemark.description)
-    if(checkBox.isChecked) visiteddate.text = "Visited date: " + placemark.date
+    if(checkBox.isChecked) visiteddate.text = placemark.date
+    if(additionalnotes.text.isEmpty()) additionalnotes.setText(placemark.notes)
 
     Glide.with(this).load(placemark.image).into(placemarkImage);
 
@@ -107,7 +108,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
         if (placemarkTitle.text.toString().isEmpty()) {
           toast(R.string.enter_placemark_title)
         } else {
-          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date)
+          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, visiteddate.text.toString(), additionalnotes.text.toString())
         }
       }
       R.id.item_cancel -> {

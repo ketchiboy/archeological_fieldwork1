@@ -50,22 +50,25 @@
               android:layout_width="379dp"
               android:layout_height="wrap_content"
               android:layout_marginStart="13dp"
-              android:layout_marginTop="70dp"
+              android:layout_marginTop="156dp"
               android:layout_marginEnd="19dp"
+              android:layout_marginBottom="70dp"
               android:background="@color/colorAccent"
               android:paddingTop="8dp"
               android:paddingBottom="8dp"
               android:text="@string/button_addImage"
               android:textColor="@color/colorPrimary"
               android:textSize="16sp"
+              app:layout_constraintBottom_toTopOf="@+id/placemarkImage"
               app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.0"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/description" />
+              app:layout_constraintTop_toBottomOf="@+id/visiteddate" />
 
           <EditText
               android:id="@+id/description"
-              android:layout_width="249dp"
-              android:layout_height="62dp"
+              android:layout_width="250dp"
+              android:layout_height="55dp"
               android:layout_marginStart="8dp"
               android:layout_marginTop="8dp"
               android:hint="@string/hint_placemarkDescription"
@@ -81,9 +84,23 @@
               app:layout_constraintTop_toBottomOf="@+id/placemarkTitle" />
 
           <EditText
+              android:id="@+id/additionalnotes"
+              android:layout_width="386dp"
+              android:layout_height="102dp"
+              android:layout_marginStart="5dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="5dp"
+              android:layout_marginBottom="16dp"
+              android:hint="@string/putnoteshere"
+              app:layout_constraintBottom_toTopOf="@+id/chooseImage"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/visiteddate" />
+
+          <EditText
               android:id="@+id/placemarkTitle"
-              android:layout_width="248dp"
-              android:layout_height="57dp"
+              android:layout_width="250dp"
+              android:layout_height="55dp"
               android:layout_marginStart="8dp"
               android:layout_marginTop="72dp"
               android:autofillHints=""
@@ -127,7 +144,7 @@
               android:layout_width="401dp"
               android:layout_height="178dp"
               android:layout_marginStart="4dp"
-              android:layout_marginTop="50dp"
+              android:layout_marginTop="70dp"
               android:layout_marginEnd="5dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +157,7 @@
               android:layout_width="405dp"
               android:layout_height="244dp"
               android:layout_marginStart="16dp"
-              android:layout_marginTop="50dp"
+              android:layout_marginTop="100dp"
               android:layout_marginEnd="16dp"
               android:layout_marginBottom="8dp"
               app:layout_constraintBottom_toBottomOf="parent"
@@ -154,8 +171,8 @@
               android:id="@+id/textView"
               android:layout_width="90dp"
               android:layout_height="24dp"
-              android:layout_marginStart="32dp"
-              android:layout_marginTop="64dp"
+              android:layout_marginStart="40dp"
+              android:layout_marginTop="72dp"
               android:text="Location"
               android:textAlignment="center"
               app:layout_constraintStart_toEndOf="@+id/placemarkTitle"
@@ -173,14 +190,24 @@
 
           <TextView
               android:id="@+id/visiteddate"
-              android:layout_width="365dp"
+              android:layout_width="196dp"
               android:layout_height="36dp"
-              android:layout_marginBottom="10dp"
+              android:layout_marginTop="28dp"
+              android:layout_marginEnd="16dp"
               android:text="@string/notvisited"
-              app:layout_constraintBottom_toTopOf="@+id/chooseImage"
               app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/description" />
+
+          <TextView
+              android:id="@+id/stringvisiteddate"
+              android:layout_width="149dp"
+              android:layout_height="36dp"
+              android:text="@string/visiteddate"
+              app:layout_constraintBottom_toTopOf="@+id/additionalnotes"
+              app:layout_constraintEnd_toStartOf="@+id/visiteddate"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/description" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

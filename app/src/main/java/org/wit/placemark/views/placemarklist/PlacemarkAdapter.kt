@@ -37,7 +37,7 @@ class PlacemarkAdapter constructor(
     holder.bind(placemark, listener)
   }
 
-  
+
   override fun getItemCount(): Int = placemarks.size
 
   class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

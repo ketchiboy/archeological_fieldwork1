@@ -31,4 +31,6 @@
   <string name="Password">Password: </string>
   <string name="numberofvisited">Number of visited: </string>
   <string name="notvisited">not visited</string>
+  <string name="putnoteshere">Put notes here</string>
+  <string name="visiteddate">Visited on: </string>
 </resources>
