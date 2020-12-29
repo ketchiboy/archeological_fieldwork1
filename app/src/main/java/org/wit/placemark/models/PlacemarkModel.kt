@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 @Entity
@@ -14,6 +15,7 @@ data class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                           var description: String = "",
                           var image: String = "",
                           var visited: Boolean = false,
+                          var date: String = "",
                           @Embedded var location: Location = Location()) : Parcelable
 @Parcelize
 data class Location(var lat: Double = 0.0,

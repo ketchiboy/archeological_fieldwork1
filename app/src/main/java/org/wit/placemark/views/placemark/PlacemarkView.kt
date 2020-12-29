@@ -1,9 +1,11 @@
 package org.wit.placemark.views.placemark
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
@@ -15,6 +17,10 @@ import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 import org.wit.placemark.views.VIEW
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class PlacemarkView : BaseView(), AnkoLogger {
 
@@ -23,15 +29,24 @@ class PlacemarkView : BaseView(), AnkoLogger {
   lateinit var map: GoogleMap
   var checked: Boolean = false
 
+  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark)
     checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
       if (isChecked) {
         placemark.visited = true
+        if(placemark.date.isEmpty()){
+          val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
+          val currentDate = sdf.format(Date())
+
+          placemark.date = currentDate.toString()
+        }
       }else{
         placemark.visited = false
+        placemark.date = ""
       }
+      visiteddate.text = "Visited date: " + placemark.date
     }
 
 
@@ -47,7 +62,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
 
     chooseImage.setOnClickListener {
-      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited)
+      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date)
       presenter.doSelectImage()
     }
   }
@@ -56,6 +71,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     checkBox.isChecked = placemark.visited
     if (placemarkTitle.text.isEmpty()) placemarkTitle.setText(placemark.title)
     if (description.text.isEmpty())  description.setText(placemark.description)
+    if(checkBox.isChecked) visiteddate.text = "Visited date: " + placemark.date
 
     Glide.with(this).load(placemark.image).into(placemarkImage);
 
@@ -86,7 +102,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
         if (placemarkTitle.text.toString().isEmpty()) {
           toast(R.string.enter_placemark_title)
         } else {
-          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), placemark.visited)
+          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date)
         }
       }
       R.id.item_cancel -> {

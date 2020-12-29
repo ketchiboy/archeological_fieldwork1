@@ -33,6 +33,8 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
       foundPlacemark.description = placemark.description
       foundPlacemark.image = placemark.image
       foundPlacemark.location = placemark.location
+      foundPlacemark.visited = placemark.visited
+      foundPlacemark.date = placemark.date
       logAll();
     }
   }

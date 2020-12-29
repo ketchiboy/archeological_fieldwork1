@@ -48,12 +48,14 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             foundPlacemark.image = placemark.image
             foundPlacemark.location = placemark.location
             foundPlacemark.visited = placemark.visited
+            foundPlacemark.date = placemark.date
         }
 
         db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
         if ((placemark.image.length) > 0 && (placemark.image[0] != 'h')) {
             updateImage(placemark)
         }
+
     }
 
     override fun delete(placemark: PlacemarkModel) {
@@ -89,6 +91,8 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             }
         }
     }
+
+
 
     fun fetchPlacemarks(placemarksReady: () -> Unit) {
         val valueEventListener = object : ValueEventListener {
