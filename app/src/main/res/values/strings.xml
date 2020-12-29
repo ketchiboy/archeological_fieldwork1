@@ -30,4 +30,5 @@
   <string name="Email_address">E-Mail address: </string>
   <string name="Password">Password: </string>
   <string name="numberofvisited">Number of visited: </string>
+  <string name="notvisited">not visited</string>
 </resources>

@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import org.wit.placemark.R
 import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 interface PlacemarkListener {
   fun onPlacemarkClick(placemark: PlacemarkModel)
@@ -46,8 +48,16 @@ class PlacemarkAdapter constructor(
       itemView.checkBox2.setOnCheckedChangeListener { buttonView, isChecked ->
         if (isChecked) {
           placemark.visited = true
+          if(placemark.date == ""){
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
+            val currentDate = sdf.format(Date())
+
+            placemark.date = currentDate.toString()
+          }
+
         }else{
           placemark.visited = false
+          placemark.date = ""
         }
       }
       Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);

@@ -46,7 +46,12 @@ class PlacemarkView : BaseView(), AnkoLogger {
         placemark.visited = false
         placemark.date = ""
       }
-      visiteddate.text = "Visited date: " + placemark.date
+      if(placemark.date == ""){
+        visiteddate.text= "not visited"
+      }else{
+        visiteddate.text = "Visited date: " + placemark.date
+      }
+
     }
 
 
