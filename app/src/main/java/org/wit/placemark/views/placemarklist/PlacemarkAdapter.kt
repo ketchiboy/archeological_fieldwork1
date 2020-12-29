@@ -37,6 +37,7 @@ class PlacemarkAdapter constructor(
     holder.bind(placemark, listener)
   }
 
+  
 
   override fun getItemCount(): Int = placemarks.size
 
