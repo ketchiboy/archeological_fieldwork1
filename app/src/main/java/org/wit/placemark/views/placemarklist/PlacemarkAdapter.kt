@@ -43,6 +43,8 @@ class PlacemarkAdapter constructor(
   class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
+      itemView.latitude.setText("%.4f".format(placemark.location.lat))
+      itemView.longitude.setText("%.4f".format(placemark.location.lng))
       itemView.placemarkTitle.text = placemark.title
       itemView.description.text = placemark.description
       itemView.checkBox2.isChecked = placemark.visited
