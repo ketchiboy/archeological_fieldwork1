@@ -19,6 +19,11 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
     return placemarks
   }
 
+  override fun findfavorites(): List<PlacemarkModel> {
+
+    return placemarks
+  }
+
 
   override fun create(placemark: PlacemarkModel) {
     placemark.id = getId()

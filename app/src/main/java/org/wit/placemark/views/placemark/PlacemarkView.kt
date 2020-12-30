@@ -135,6 +135,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
       R.id.item_settings -> {
         navigateTo(VIEW.SETTINGS)
       }
+      R.id.item_favorites -> presenter.doFavorites()
 
     }
     return super.onOptionsItemSelected(item)

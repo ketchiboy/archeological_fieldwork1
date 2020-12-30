@@ -20,6 +20,10 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
     return dao.findAll()
   }
 
+  override fun findfavorites(): List<PlacemarkModel> {
+    return dao.findfavorites()
+  }
+
 
   override fun findById(id: Long): PlacemarkModel? {
     return dao.findById(id)

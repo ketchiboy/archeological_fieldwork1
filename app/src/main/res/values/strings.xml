@@ -36,4 +36,5 @@
   <string name="up">Up</string>
   <string name="myrating">My Rating: </string>
   <string name="favorite">Favorite </string>
+  <string name="allsites">all Sites </string>
 </resources>

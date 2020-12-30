@@ -11,6 +11,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.wit.placemark.models.Location
 
 import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.views.favorites.FavoriteListView
 import org.wit.placemark.views.location.EditLocationView
 import org.wit.placemark.views.map.PlacemarkMapView
 import org.wit.placemark.views.placemark.PlacemarkView
@@ -23,7 +24,7 @@ val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS
+  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -44,6 +45,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
       VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
       VIEW.SPLASH -> intent = Intent(this, splashview::class.java)
       VIEW.SETTINGS -> intent = Intent(this, settingsview::class.java)
+      VIEW.FAVORITE -> intent = Intent(this, FavoriteListView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)

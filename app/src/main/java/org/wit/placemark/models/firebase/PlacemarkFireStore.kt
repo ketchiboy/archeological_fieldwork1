@@ -24,6 +24,10 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
         return placemarks
     }
 
+    override fun findfavorites(): List<PlacemarkModel> {
+        return placemarks
+    }
+
 
     override fun findById(id: Long): PlacemarkModel? {
         val foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }

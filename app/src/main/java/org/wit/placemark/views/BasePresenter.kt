@@ -41,4 +41,11 @@ open class BasePresenter(var view: BaseView?) {
     view?.navigateTo(VIEW.SETTINGS)
   }
 
+  fun doFavorites(){
+    view?.navigateTo(VIEW.FAVORITE)
+  }
+  fun gobacktoList(){
+    view?.navigateTo(VIEW.LIST)
+  }
+
 }

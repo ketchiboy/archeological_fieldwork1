@@ -7,4 +7,5 @@ interface PlacemarkStore {
   fun delete(placemark: PlacemarkModel)
   fun findById(id:Long) : PlacemarkModel?
   fun clear()
+  fun findfavorites(): List<PlacemarkModel>
 }

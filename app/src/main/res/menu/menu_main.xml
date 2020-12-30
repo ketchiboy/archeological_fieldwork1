@@ -30,4 +30,13 @@
       android:id="@+id/item_up"
       android:title="@string/up"
       app:showAsAction="never"/>
+
+  <item
+      android:id="@+id/item_favorites"
+      android:title="@string/favorite"
+      app:showAsAction="never"/>
+  <item
+      android:id="@+id/item_allsites"
+      android:title="@string/allsites"
+      app:showAsAction="never"/>
 </menu>
