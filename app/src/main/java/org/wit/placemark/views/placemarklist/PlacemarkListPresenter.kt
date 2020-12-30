@@ -27,4 +27,5 @@ class PlacemarkListPresenter(view: BaseView) : BasePresenter(view) {
   }
 
 
+
 }

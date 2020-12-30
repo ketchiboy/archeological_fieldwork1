@@ -74,12 +74,14 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  fun cachePlacemark (title: String, description: String, checked: Boolean, time: String, notes: String) {
+  fun cachePlacemark (title: String, description: String, checked: Boolean, time: String, notes: String, rating: Float, favorite: Boolean) {
     placemark.title = title;
     placemark.description = description
     placemark.visited = checked
     placemark.date = time
     placemark.notes = notes
+    placemark.rating = rating
+    placemark.favorite = favorite
   }
 
   fun doConfigureMap(m: GoogleMap) {
@@ -97,12 +99,14 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     view?.showLocation(placemark.location)
   }
 
-  fun doAddOrSave(title: String, description: String, checked: Boolean, time: String, notes: String) {
+  fun doAddOrSave(title: String, description: String, checked: Boolean, time: String, notes: String, rating: Float, favorite: Boolean) {
     placemark.title = title
     placemark.description = description
     placemark.visited = checked
     placemark.date = time
     placemark.notes = notes
+    placemark.rating = rating
+    placemark.favorite = favorite
     doAsync {
       if (edit) {
         app.placemarks.update(placemark)

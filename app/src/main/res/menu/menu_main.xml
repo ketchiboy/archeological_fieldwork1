@@ -25,4 +25,9 @@
       android:id="@+id/item_settings"
       android:title="@string/settings"
       app:showAsAction="never"/>
+
+  <item
+      android:id="@+id/item_up"
+      android:title="@string/up"
+      app:showAsAction="never"/>
 </menu>

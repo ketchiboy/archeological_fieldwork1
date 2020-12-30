@@ -5,7 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ScrollView
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
@@ -33,6 +35,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark)
+    presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
     checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
       if (isChecked) {
         placemark.visited = true
@@ -47,11 +50,24 @@ class PlacemarkView : BaseView(), AnkoLogger {
         placemark.date = ""
       }
       if(placemark.date == ""){
-        visiteddate.text= "not visited"
+        visiteddate.text= ""
       }else{
         visiteddate.text = placemark.date
       }
 
+    }
+
+    simpleRatingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+      placemark.rating = simpleRatingBar.rating
+    }
+
+    favorite.setOnCheckedChangeListener { buttonView, isChecked ->
+
+      if (isChecked) {
+        placemark.favorite = true
+      }else{
+        placemark.favorite = false
+      }
     }
 
 
@@ -64,10 +80,10 @@ class PlacemarkView : BaseView(), AnkoLogger {
       it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
-    presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
+
 
     chooseImage.setOnClickListener {
-      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date, additionalnotes.text.toString())
+      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date, additionalnotes.text.toString(), simpleRatingBar.rating, placemark.favorite)
       presenter.doSelectImage()
     }
   }
@@ -76,8 +92,10 @@ class PlacemarkView : BaseView(), AnkoLogger {
     checkBox.isChecked = placemark.visited
     if (placemarkTitle.text.isEmpty()) placemarkTitle.setText(placemark.title)
     if (description.text.isEmpty())  description.setText(placemark.description)
-    if(checkBox.isChecked) visiteddate.text = placemark.date
+    visiteddate.text = placemark.date
     if(additionalnotes.text.isEmpty()) additionalnotes.setText(placemark.notes)
+    if(simpleRatingBar.rating == 0F) simpleRatingBar.rating = placemark.rating
+    favorite.isChecked = placemark.favorite
 
     Glide.with(this).load(placemark.image).into(placemarkImage);
 
@@ -108,7 +126,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
         if (placemarkTitle.text.toString().isEmpty()) {
           toast(R.string.enter_placemark_title)
         } else {
-          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, visiteddate.text.toString(), additionalnotes.text.toString())
+          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
         }
       }
       R.id.item_cancel -> {
@@ -117,6 +135,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
       R.id.item_settings -> {
         navigateTo(VIEW.SETTINGS)
       }
+
     }
     return super.onOptionsItemSelected(item)
   }

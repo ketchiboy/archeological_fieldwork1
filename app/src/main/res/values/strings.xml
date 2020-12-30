@@ -33,4 +33,7 @@
   <string name="notvisited">not visited</string>
   <string name="putnoteshere">Put notes here</string>
   <string name="visiteddate">Visited on: </string>
+  <string name="up">Up</string>
+  <string name="myrating">My Rating: </string>
+  <string name="favorite">Favorite </string>
 </resources>
