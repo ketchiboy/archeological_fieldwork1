@@ -47,7 +47,7 @@ class FavoriteListView :  BaseView(), PlacemarkListener {
             R.id.item_logout ->presenter.doLogout()
             R.id.item_settings -> presenter.doSettings()
             R.id.item_up -> recyclerView.scrollToPosition(0)
-            R.id.item_favorites -> presenter.gobacktoList()
+            R.id.item_allsites -> presenter.gobacktoList()
         }
         return super.onOptionsItemSelected(item)
     }

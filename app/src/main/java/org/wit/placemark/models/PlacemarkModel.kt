@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Parcelize
 @Entity
