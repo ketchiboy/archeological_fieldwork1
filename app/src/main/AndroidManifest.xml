@@ -77,6 +77,14 @@
           android:value=".views.favorites.FavoriteListView" />
     </activity>
 
+    <activity
+        android:name=".views.search.SearchListView"
+        android:label="@string/title_activity_location">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".views.search.SearchListView" />
+    </activity>
+
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_key" />

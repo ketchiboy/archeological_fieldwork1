@@ -17,6 +17,7 @@ import org.wit.placemark.views.map.PlacemarkMapView
 import org.wit.placemark.views.placemark.PlacemarkView
 import org.wit.placemark.views.placemarklist.PlacemarkListView
 import org.wit.placemark.views.login.LoginView
+import org.wit.placemark.views.search.SearchListView
 import org.wit.placemark.views.settings.settingsview
 import org.wit.placemark.views.splashview.splashview
 
@@ -24,7 +25,7 @@ val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE
+  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE, SEARCH
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -49,6 +50,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
       VIEW.SPLASH -> intent = Intent(this, splashview::class.java)
       VIEW.SETTINGS -> intent = Intent(this, settingsview::class.java)
       VIEW.FAVORITE -> intent = Intent(this, FavoriteListView::class.java)
+      VIEW.SEARCH -> intent = Intent(this, SearchListView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)

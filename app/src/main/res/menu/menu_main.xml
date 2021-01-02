@@ -39,4 +39,9 @@
       android:id="@+id/item_allsites"
       android:title="@string/allsites"
       app:showAsAction="never"/>
+
+  <item
+      android:id="@+id/item_search"
+      android:title="@string/search"
+      app:showAsAction="never"/>
 </menu>

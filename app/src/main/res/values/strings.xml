@@ -38,4 +38,7 @@
   <string name="favorite">Favorite </string>
   <string name="allsites">all Sites </string>
   <string name="btn_addimagefromcamera">Add Image from Camera</string>
+  <string name="searchfor">Search for: </string>
+  <string name="search">Search</string>
+  <string name="searchforwords">Search for words in sites here </string>
 </resources>

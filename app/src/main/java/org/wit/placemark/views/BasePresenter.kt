@@ -37,6 +37,9 @@ open class BasePresenter(var view: BaseView?) {
     view?.navigateTo(VIEW.MAPS)
   }
 
+  fun doSearch(){
+    view?.navigateTo(VIEW.SEARCH)
+  }
   fun doSettings(){
     view?.navigateTo(VIEW.SETTINGS)
   }
