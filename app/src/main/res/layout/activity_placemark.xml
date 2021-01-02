@@ -42,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/appBarLayout"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="-11dp">
+            android:layout_marginTop="-35dp"
+            android:layout_marginBottom="37dp">
 
 
           <Button
@@ -109,6 +109,21 @@
               app:layout_constraintVertical_bias="1.0" />
 
           <EditText
+              android:id="@+id/emailadressshare"
+              android:layout_width="384dp"
+              android:layout_height="65dp"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="30dp"
+              android:layout_marginEnd="16dp"
+              android:layout_marginBottom="32dp"
+              android:hint="@string/emailadresssharing"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/shareinfo"
+              app:layout_constraintVertical_bias="0.0" />
+
+          <EditText
               android:id="@+id/placemarkTitle"
               android:layout_width="250dp"
               android:layout_height="55dp"
@@ -156,7 +171,7 @@
               android:layout_width="401dp"
               android:layout_height="178dp"
               android:layout_marginStart="4dp"
-              android:layout_marginTop="108dp"
+              android:layout_marginTop="50dp"
               android:layout_marginEnd="5dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="1.0"
@@ -169,15 +184,15 @@
               android:layout_width="405dp"
               android:layout_height="244dp"
               android:layout_marginStart="16dp"
-              android:layout_marginTop="100dp"
+              android:layout_marginTop="50dp"
               android:layout_marginEnd="16dp"
               android:layout_marginBottom="8dp"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.423"
+              app:layout_constraintHorizontal_bias="0.576"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/placemarkImage"
-              app:layout_constraintVertical_bias="1.0" />
+              app:layout_constraintVertical_bias="0.0" />
 
           <TextView
               android:id="@+id/textView"
@@ -251,6 +266,20 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/description"
               app:layout_constraintVertical_bias="0.829" />
+
+          <Button
+              android:id="@+id/shareinfo"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="20dp"
+              android:text="@string/shareinfo"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.511"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/mapView"
+              app:layout_constraintVertical_bias="0.103" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

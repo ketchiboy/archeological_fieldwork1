@@ -2,6 +2,9 @@ package org.wit.placemark.views.placemark
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -73,6 +76,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       locationUpdate(defaultLocation)
     }
   }
+
 
   fun cachePlacemark (title: String, description: String, checked: Boolean, time: String, notes: String, rating: Float, favorite: Boolean) {
     placemark.title = title;
@@ -157,4 +161,5 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       }
     }
   }
+
 }

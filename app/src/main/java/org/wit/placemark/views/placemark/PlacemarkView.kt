@@ -1,11 +1,13 @@
 package org.wit.placemark.views.placemark
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,23 +37,23 @@ class PlacemarkView : BaseView(), AnkoLogger {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark)
-    presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
+    presenter = initPresenter(PlacemarkPresenter(this)) as PlacemarkPresenter
     checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
       if (isChecked) {
         placemark.visited = true
-        if(placemark.date.isEmpty()){
+        if (placemark.date.isEmpty()) {
           val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
           val currentDate = sdf.format(Date())
 
           placemark.date = currentDate.toString()
         }
-      }else{
+      } else {
         placemark.visited = false
         placemark.date = ""
       }
-      if(placemark.date == ""){
-        visiteddate.text= ""
-      }else{
+      if (placemark.date == "") {
+        visiteddate.text = ""
+      } else {
         visiteddate.text = placemark.date
       }
 
@@ -61,11 +63,13 @@ class PlacemarkView : BaseView(), AnkoLogger {
       placemark.rating = simpleRatingBar.rating
     }
 
+
+
     favorite.setOnCheckedChangeListener { buttonView, isChecked ->
 
       if (isChecked) {
         placemark.favorite = true
-      }else{
+      } else {
         placemark.favorite = false
       }
     }
@@ -86,15 +90,26 @@ class PlacemarkView : BaseView(), AnkoLogger {
       presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
       presenter.doSelectImage()
     }
+
+    val lat1 = placemark.location.lat.toString()
+    val lng1 = placemark.location.lng.toString()
+
+    shareinfo.setOnClickListener {
+      val emailadress: String = emailadressshare.text.toString()
+      val information: String = "coordinates: " + lat.text.toString() + "(lat), " + lng.text.toString() + "(lng)"
+      sendEmail(emailadress, placemarkTitle.text.toString() + " " + description.text.toString(), information)
+
+    }
   }
+
 
   override fun showPlacemark(placemark: PlacemarkModel) {
     checkBox.isChecked = placemark.visited
     if (placemarkTitle.text.isEmpty()) placemarkTitle.setText(placemark.title)
-    if (description.text.isEmpty())  description.setText(placemark.description)
+    if (description.text.isEmpty()) description.setText(placemark.description)
     visiteddate.text = placemark.date
-    if(additionalnotes.text.isEmpty()) additionalnotes.setText(placemark.notes)
-    if(simpleRatingBar.rating == 0F) simpleRatingBar.rating = placemark.rating
+    if (additionalnotes.text.isEmpty()) additionalnotes.setText(placemark.notes)
+    if (simpleRatingBar.rating == 0F) simpleRatingBar.rating = placemark.rating
     favorite.isChecked = placemark.favorite
 
     Glide.with(this).load(placemark.image).into(placemarkImage);
@@ -105,7 +120,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     this.showLocation(placemark.location)
   }
 
-  override fun showLocation (loc : Location) {
+  override fun showLocation(loc: Location) {
     lat.setText("%.6f".format(loc.lat))
     lng.setText("%.6f".format(loc.lng))
 
@@ -177,4 +192,34 @@ class PlacemarkView : BaseView(), AnkoLogger {
     super.onSaveInstanceState(outState)
     mapView.onSaveInstanceState(outState)
   }
+
+  private fun sendEmail(recipient: String, subject: String, message: String) {
+    /*ACTION_SEND action to launch an email client installed on your Android device.*/
+    val mIntent = Intent(Intent.ACTION_SEND)
+    /*To send an email you need to specify mailto: as URI using setData() method
+    and data type will be to text/plain using setType() method*/
+    mIntent.data = Uri.parse("mailto:")
+    mIntent.type = "text/plain"
+    // put recipient email in intent
+    /* recipient is put as array because you may wanna send email to multiple emails
+       so enter comma(,) separated emails, it will be stored in array*/
+    mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+    //put the Subject in the intent
+    mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+    //put the message in the intent
+    mIntent.putExtra(Intent.EXTRA_TEXT, message)
+
+
+    try {
+      //start email intent
+      startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
+    }
+    catch (e: Exception){
+      //if any thing goes wrong for example no email client application or any exception
+      //get and show exception message
+      Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+    }
+
+  }
+
 }
