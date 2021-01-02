@@ -35,6 +35,9 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
 
 
 
+
+
+
   fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
     var intent = Intent(this, PlacemarkListView::class.java)
     when (view) {

@@ -48,4 +48,6 @@ open class BasePresenter(var view: BaseView?) {
     view?.navigateTo(VIEW.LIST)
   }
 
+
+
 }

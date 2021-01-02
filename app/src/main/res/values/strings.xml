@@ -37,4 +37,5 @@
   <string name="myrating">My Rating: </string>
   <string name="favorite">Favorite </string>
   <string name="allsites">all Sites </string>
+  <string name="btn_addimagefromcamera">Add Image from Camera</string>
 </resources>

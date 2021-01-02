@@ -143,9 +143,6 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(placemark.location.lat, placemark.location.lng, placemark.location.zoom))
   }
 
-  fun doSetVisitedontrue(){
-
-  }
 
   override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
     when (requestCode) {

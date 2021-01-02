@@ -83,7 +83,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
 
 
     chooseImage.setOnClickListener {
-      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), placemark.visited, placemark.date, additionalnotes.text.toString(), simpleRatingBar.rating, placemark.favorite)
+      presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
       presenter.doSelectImage()
     }
   }
