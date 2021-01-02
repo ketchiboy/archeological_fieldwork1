@@ -96,7 +96,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
 
     shareinfo.setOnClickListener {
       val emailadress: String = emailadressshare.text.toString()
-      val information: String = "coordinates: " + lat.text.toString() + "(lat), " + lng.text.toString() + "(lng)"
+      val information: String = "link to coordinates: " + "http://maps.google.com?q=" + lat.text.toString() + "," + lng.text.toString()
       sendEmail(emailadress, placemarkTitle.text.toString() + " " + description.text.toString(), information)
 
     }
