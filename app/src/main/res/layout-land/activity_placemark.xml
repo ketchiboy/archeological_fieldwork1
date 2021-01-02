@@ -42,17 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/appBarLayout"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="-11dp">
+            android:layout_marginTop="370dp"
+            android:layout_marginBottom="-369dp">
 
 
           <Button
               android:id="@+id/chooseImage"
-              android:layout_width="386dp"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="13dp"
+              android:layout_width="673dp"
+              android:layout_height="53dp"
+              android:layout_marginStart="20dp"
               android:layout_marginTop="200dp"
-              android:layout_marginEnd="19dp"
+              android:layout_marginEnd="20dp"
               android:background="@color/colorAccent"
               android:paddingTop="8dp"
               android:paddingBottom="8dp"
@@ -86,24 +86,23 @@
               android:id="@+id/simpleRatingBar"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="16dp"
+              android:layout_marginBottom="20dp"
               app:layout_constraintBottom_toTopOf="@+id/additionalnotes"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.912"
+              app:layout_constraintHorizontal_bias="0.987"
               app:layout_constraintStart_toStartOf="parent" />
 
           <EditText
               android:id="@+id/additionalnotes"
-              android:layout_width="386dp"
-              android:layout_height="102dp"
-              android:layout_marginStart="5dp"
+              android:layout_width="597dp"
+              android:layout_height="100dp"
+              android:layout_marginStart="20dp"
               android:layout_marginTop="100dp"
-              android:layout_marginEnd="5dp"
+              android:layout_marginEnd="20dp"
               android:layout_marginBottom="20dp"
               android:hint="@string/putnoteshere"
               app:layout_constraintBottom_toTopOf="@+id/chooseImage"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.466"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/visiteddate"
               app:layout_constraintVertical_bias="1.0" />
@@ -132,49 +131,47 @@
               android:id="@+id/lat"
               android:layout_width="95dp"
               android:layout_height="19dp"
-              android:layout_marginTop="10dp"
-              android:layout_marginEnd="16dp"
+              android:layout_marginTop="80dp"
+              android:layout_marginEnd="180dp"
               android:text="00.000000"
               android:textAlignment="center"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView" />
+              app:layout_constraintTop_toTopOf="parent" />
+
 
           <TextView
               android:id="@+id/lng"
               android:layout_width="92dp"
               android:layout_height="19dp"
-              android:layout_marginTop="10dp"
-              android:layout_marginEnd="16dp"
+              android:layout_marginTop="80dp"
+              android:layout_marginEnd="40dp"
               android:text="00.000000"
               android:textAlignment="center"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/lat" />
-
+              app:layout_constraintTop_toTopOf="parent" />
 
           <ImageView
               android:id="@+id/placemarkImage"
               android:layout_width="401dp"
               android:layout_height="178dp"
-              android:layout_marginStart="4dp"
-              android:layout_marginTop="108dp"
-              android:layout_marginEnd="5dp"
+              android:layout_marginStart="166dp"
+              android:layout_marginTop="64dp"
+              android:layout_marginEnd="164dp"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="1.0"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/chooseImage"
               app:srcCompat="@mipmap/ic_launcher" />
 
           <com.google.android.gms.maps.MapView
               android:id="@+id/mapView"
-              android:layout_width="405dp"
-              android:layout_height="244dp"
-              android:layout_marginStart="16dp"
+              android:layout_width="682dp"
+              android:layout_height="265dp"
+              android:layout_marginStart="15dp"
               android:layout_marginTop="100dp"
-              android:layout_marginEnd="16dp"
+              android:layout_marginEnd="15dp"
               android:layout_marginBottom="8dp"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.423"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/placemarkImage"
               app:layout_constraintVertical_bias="1.0" />
@@ -198,10 +195,11 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginStart="44dp"
-              android:layout_marginTop="10dp"
+              android:layout_marginTop="20dp"
               android:layout_marginEnd="16dp"
               android:text="@string/visited"
               app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.114"
               app:layout_constraintStart_toEndOf="@+id/description"
               app:layout_constraintTop_toBottomOf="@+id/lng" />
 
@@ -210,11 +208,11 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginStart="44dp"
-              android:layout_marginTop="52dp"
+              android:layout_marginTop="20dp"
               android:layout_marginEnd="16dp"
               android:text="@string/favorite"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintHorizontal_bias="0.894"
               app:layout_constraintStart_toEndOf="@+id/description"
               app:layout_constraintTop_toBottomOf="@+id/lng" />
 
@@ -232,13 +230,11 @@
               android:id="@+id/stringvisiteddate"
               android:layout_width="149dp"
               android:layout_height="36dp"
+              android:layout_marginStart="336dp"
+              android:layout_marginTop="12dp"
               android:text="@string/visiteddate"
-              app:layout_constraintBottom_toTopOf="@+id/additionalnotes"
-              app:layout_constraintEnd_toStartOf="@+id/visiteddate"
-              app:layout_constraintHorizontal_bias="0.24"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/description"
-              app:layout_constraintVertical_bias="0.35" />
+              app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
           <TextView
               android:id="@+id/Rating"
@@ -247,10 +243,9 @@
               android:text="@string/myrating"
               app:layout_constraintBottom_toTopOf="@+id/additionalnotes"
               app:layout_constraintEnd_toStartOf="@+id/visiteddate"
-              app:layout_constraintHorizontal_bias="0.177"
+              app:layout_constraintHorizontal_bias="0.819"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/description"
-              app:layout_constraintVertical_bias="0.829" />
+              app:layout_constraintTop_toBottomOf="@+id/description" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

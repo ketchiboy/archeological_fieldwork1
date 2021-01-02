@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:elevation="24dp">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="16dp">
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_toEndOf="@+id/imageIcon"
+        android:text="0.00000" />
+
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/latitude"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="23dp"
+        android:layout_toEndOf="@+id/imageIcon"
+        android:text="0.00000" />
+
+    <ImageView
+        android:id="@+id/imageIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/change_placemark_image" />
+
+    <TextView
+        android:id="@+id/placemarkTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageIcon"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/placemarkTitle"
+        android:layout_toEndOf="@+id/imageIcon" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageIcon"
+        android:layout_marginEnd="-373dp"
+        android:enabled="false"
+        android:text="@string/visited" />
+
+  </RelativeLayout>
+</androidx.cardview.widget.CardView>
