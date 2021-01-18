@@ -142,6 +142,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
+  fun doImageView(){
+    view?.navigateTo(VIEW.IMAGES)
+  }
+
   fun doSetLocation() {
     locationManualyChanged = true;
     view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(placemark.location.lat, placemark.location.lng, placemark.location.zoom))

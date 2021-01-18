@@ -20,6 +20,8 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
     lateinit var db: DatabaseReference
     lateinit var st: StorageReference
 
+
+
     override fun findAll(): List<PlacemarkModel> {
         return placemarks
     }
@@ -76,32 +78,37 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
         }
 
         fun updateImage(placemark: PlacemarkModel) {
-            if (placemark.image != "") {
-                val fileName = File(placemark.image)
-                val imageName = fileName.getName()
 
-                var imageRef = st.child(userId + '/' + imageName)
-                val baos = ByteArrayOutputStream()
-                val bitmap = readImageFromPath(context, placemark.image)
 
-                bitmap?.let {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                    val data = baos.toByteArray()
-                    val uploadTask = imageRef.putBytes(data)
-                    uploadTask.addOnFailureListener {
-                        println(it.message)
-                    }.addOnSuccessListener { taskSnapshot ->
-                        taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                            placemark.image = it.toString()
-                            db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
+                if (placemark.image != "") {
+                    val fileName = File(placemark.image)
+                    val imageName = fileName.getName()
+
+                    var imageRef = st.child(userId + '/' + imageName)
+                    val baos = ByteArrayOutputStream()
+                    val bitmap = readImageFromPath(context, placemark.image)
+
+                    bitmap?.let {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                        val data = baos.toByteArray()
+                        val uploadTask = imageRef.putBytes(data)
+                        uploadTask.addOnFailureListener {
+                            println(it.message)
+                        }.addOnSuccessListener { taskSnapshot ->
+                            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                                placemark.image = it.toString()
+                                db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
+                            }
                         }
                     }
                 }
-            }
+
+
         }
 
 
         fun fetchPlacemarks(placemarksReady: () -> Unit) {
+
             val valueEventListener = object : ValueEventListener {
                 override fun onCancelled(dataSnapshot: DatabaseError) {
                 }
@@ -111,10 +118,14 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
                     placemarksReady()
                 }
             }
-            userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+
             db = FirebaseDatabase.getInstance().reference
+
+            userId = FirebaseAuth.getInstance().currentUser!!.uid
             st = FirebaseStorage.getInstance().reference
             placemarks.clear()
             db.child("users").child(userId).child("placemarks").addListenerForSingleValueEvent(valueEventListener)
+
         }
     }

@@ -29,7 +29,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
-            android:id="@+id/placemarkImage3"
+            android:id="@+id/image1"
             android:layout_width="365dp"
             android:layout_height="107dp"
             android:layout_marginStart="4dp"
@@ -42,7 +42,7 @@
             app:srcCompat="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/placemarkImage4"
+            android:id="@+id/image4"
             android:layout_width="365dp"
             android:layout_height="107dp"
             android:layout_marginStart="4dp"
@@ -51,11 +51,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.513"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/placemarkImage5"
+            app:layout_constraintTop_toBottomOf="@+id/image3"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/placemarkImage5"
+            android:id="@+id/image3"
             android:layout_width="365dp"
             android:layout_height="107dp"
             android:layout_marginStart="4dp"
@@ -64,21 +64,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.513"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/placemarkImage6"
+            app:layout_constraintTop_toBottomOf="@+id/image2"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/placemarkImage6"
+            android:id="@+id/image2"
             android:layout_width="365dp"
             android:layout_height="107dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/image3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.513"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/placemarkImage3"
+            app:layout_constraintTop_toBottomOf="@+id/button"
             app:srcCompat="@mipmap/ic_launcher" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/image2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

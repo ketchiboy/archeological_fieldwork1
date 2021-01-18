@@ -6,7 +6,6 @@ import org.jetbrains.anko.info
 import org.wit.placemark.models.PlacemarkStore
 import org.wit.placemark.models.firebase.PlacemarkFireStore
 import org.wit.placemark.models.json.PlacemarkJSONStore
-import org.wit.placemark.room.PlacemarkStoreRoom
 
 class MainApp : Application(), AnkoLogger {
 

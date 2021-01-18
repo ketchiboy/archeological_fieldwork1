@@ -42,5 +42,6 @@
   <string name="search">Search</string>
   <string name="searchforwords">Search for words in sites here </string>
   <string name="shareinfo">Share Site Information</string>
+  <string name="showallimages">Show all images</string>
   <string name="emailadresssharing">Put email adress to share information here</string>
 </resources>

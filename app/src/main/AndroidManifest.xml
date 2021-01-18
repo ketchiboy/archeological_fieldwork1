@@ -85,6 +85,14 @@
           android:value=".views.search.SearchListView" />
     </activity>
 
+    <activity
+        android:name=".views.images.ImageView"
+        android:label="@string/title_activity_location">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".views.images.ImageView" />
+    </activity>
+
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_key" />
