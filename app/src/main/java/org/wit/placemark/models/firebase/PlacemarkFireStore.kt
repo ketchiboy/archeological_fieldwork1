@@ -61,8 +61,11 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
 
 
             db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
-            if ((placemark.image.length) > 0 && (placemark.image[0] != 'h')) {
-                updateImage(placemark)
+
+            placemark.images.forEach{
+                if((it.length) > 0 && (it[0] != 'h')){
+                    updateImage(placemark)
+                }
             }
 
         }
@@ -79,14 +82,16 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
 
         fun updateImage(placemark: PlacemarkModel) {
 
-
-                if (placemark.image != "") {
-                    val fileName = File(placemark.image)
+             var i :Int =0
+            while (i < placemark.images.size){
+                if (placemark.images.get(i) != "") {
+                    val fileName = File(placemark.images.get(i))
+                    val debug :String = placemark.images.get(i)
                     val imageName = fileName.getName()
 
                     var imageRef = st.child(userId + '/' + imageName)
                     val baos = ByteArrayOutputStream()
-                    val bitmap = readImageFromPath(context, placemark.image)
+                    val bitmap = readImageFromPath(context, placemark.images.get(i))
 
                     bitmap?.let {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -96,12 +101,14 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
                             println(it.message)
                         }.addOnSuccessListener { taskSnapshot ->
                             taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                                placemark.image = it.toString()
+                                placemark.images.add(it.toString())
                                 db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
                             }
                         }
                     }
                 }
+                i++
+            }
 
 
         }

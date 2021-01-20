@@ -7,27 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_placemark.*
 import kotlinx.android.synthetic.main.card_placemark.view.*
 import org.wit.placemark.R
-import org.wit.placemark.helpers.readImageFromPath
-import org.wit.placemark.models.PlacemarkModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 interface HillfortClickListener {
     fun onImageClick(image: String, index: Int)
 }
 
-class HillfortAdapter constructor(
-        private var images: List<String>,
-        private val listener: HillfortClickListener
+class HillfortAdapter(
+        private var images: MutableList<String>,
+        private var listener: HillfortClickListener
 ) : RecyclerView.Adapter<HillfortAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         return MainHolder(
                 LayoutInflater.from(parent?.context).inflate(
-                        R.layout.card_placemark,
+                        R.layout.card_images,
                         parent,
                         false
                 )

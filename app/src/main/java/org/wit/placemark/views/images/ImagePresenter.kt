@@ -90,8 +90,8 @@ class ImagePresenter(view: BaseView) : BasePresenter(view) {
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
-
-                placemark.image = data.data.toString()
+                if(placemark.images.size < 4)
+                placemark.images.add(data.data.toString())
                 view?.showPlacemark(placemark)
                 }
 

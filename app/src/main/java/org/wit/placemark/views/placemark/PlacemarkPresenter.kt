@@ -142,9 +142,6 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  fun doImageView(){
-    view?.navigateTo(VIEW.IMAGES)
-  }
 
   fun doSetLocation() {
     locationManualyChanged = true;
@@ -155,7 +152,13 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
     when (requestCode) {
       IMAGE_REQUEST -> {
-        placemark.image = data.data.toString()
+        if(placemark.images.size <4){
+          if(!placemark.images.contains(data.data.toString())){
+            placemark.images.add(data.data.toString())
+          }
+
+            }
+
         view?.showPlacemark(placemark)
       }
       LOCATION_REQUEST -> {

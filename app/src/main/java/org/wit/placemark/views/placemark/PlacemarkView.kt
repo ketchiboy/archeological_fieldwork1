@@ -10,11 +10,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
-import kotlinx.android.synthetic.main.activity_placemark_list.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
@@ -22,12 +19,11 @@ import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 import org.wit.placemark.views.VIEW
-import org.wit.placemark.views.placemarklist.PlacemarkAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PlacemarkView : BaseView(), AnkoLogger {
+class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
 
   lateinit var presenter: PlacemarkPresenter
   var placemark = PlacemarkModel()
@@ -38,12 +34,14 @@ class PlacemarkView : BaseView(), AnkoLogger {
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     setContentView(R.layout.activity_placemark)
 
     val layoutManager = LinearLayoutManager(this)
     recyclerView2.layoutManager = layoutManager
 
     presenter = initPresenter(PlacemarkPresenter(this)) as PlacemarkPresenter
+    super.init(toolbarAdd, true);
 
     checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
       if (isChecked) {
@@ -80,9 +78,6 @@ class PlacemarkView : BaseView(), AnkoLogger {
       }
     }
 
-
-    super.init(toolbarAdd, true);
-
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
       map = it
@@ -112,6 +107,10 @@ class PlacemarkView : BaseView(), AnkoLogger {
 
 
   override fun showPlacemark(placemark: PlacemarkModel) {
+
+    recyclerView2.adapter = HillfortAdapter(placemark.images, this)
+    recyclerView2.adapter?.notifyDataSetChanged()
+
     checkBox.isChecked = placemark.visited
     if (placemarkTitle.text.isEmpty()) placemarkTitle.setText(placemark.title)
     if (description.text.isEmpty()) description.setText(placemark.description)
@@ -120,8 +119,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     if (simpleRatingBar.rating == 0F) simpleRatingBar.rating = placemark.rating
     favorite.isChecked = placemark.favorite
 
-   /* recyclerView2.adapter = HillfortAdapter(placemark.images, this)
-    recyclerView2.adapter?.notifyDataSetChanged()*/
+
 
 
     Glide.with(this).load(placemark.image).into(placemarkImage);
@@ -175,6 +173,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     }
   }
 
+
   override fun onBackPressed() {
     presenter.doCancel()
   }
@@ -226,6 +225,13 @@ class PlacemarkView : BaseView(), AnkoLogger {
     catch (e: Exception){
       Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
     }
+
+  }
+
+  override fun onImageClick(image: String, index: Int) {
+    presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
+    presenter.doSelectImage()
+
 
   }
 
