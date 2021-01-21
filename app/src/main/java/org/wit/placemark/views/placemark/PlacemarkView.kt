@@ -18,6 +18,7 @@ import org.wit.placemark.R
 import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
+import org.wit.placemark.views.IMAGE_REQUEST
 import org.wit.placemark.views.VIEW
 import java.text.SimpleDateFormat
 import java.util.*
@@ -92,7 +93,7 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
 
     chooseImage.setOnClickListener {
       presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
-      presenter.doSelectImage()
+      presenter.doSelectImage(IMAGE_REQUEST)
 
     }
 
@@ -230,7 +231,8 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
 
   override fun onImageClick(image: String, index: Int) {
     presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
-    presenter.doSelectImage()
+    presenter.doSelectImage(index)
+    //placemark.images.get(index)
 
 
   }

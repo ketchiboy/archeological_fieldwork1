@@ -136,10 +136,13 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  fun doSelectImage() {
-    view?.let {
-      showImagePicker(view!!, IMAGE_REQUEST)
-    }
+  fun doSelectImage(requestCode: Int) {
+
+      view?.let {
+        showImagePicker(view!!, requestCode)
+      }
+
+
   }
 
 
@@ -165,6 +168,24 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
         val location = data.extras?.getParcelable<Location>("location")!!
         placemark.location = location
         locationUpdate(location)
+      }
+      IMAGE_REQUEST_ADAPTER_CLICK_1 -> {
+        placemark.images.set(requestCode, data.data.toString())
+        view?.showPlacemark(placemark)
+
+      }
+      IMAGE_REQUEST_ADAPTER_CLICK_2 -> {
+        placemark.images.set(requestCode, data.data.toString())
+        view?.showPlacemark(placemark)
+      }
+      IMAGE_REQUEST_ADAPTER_CLICK_3 -> {
+        placemark.images.set(requestCode, data.data.toString())
+        view?.showPlacemark(placemark)
+      }
+      IMAGE_REQUEST_ADAPTER_CLICK_4 -> {
+        placemark.images.set(requestCode, data.data.toString())
+        view?.showPlacemark(placemark)
+
       }
     }
   }

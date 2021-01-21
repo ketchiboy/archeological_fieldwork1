@@ -22,8 +22,12 @@ import org.wit.placemark.views.search.SearchListView
 import org.wit.placemark.views.settings.settingsview
 import org.wit.placemark.views.splashview.splashview
 
-val IMAGE_REQUEST = 1
-val LOCATION_REQUEST = 2
+val IMAGE_REQUEST = 5
+val LOCATION_REQUEST = 6
+val IMAGE_REQUEST_ADAPTER_CLICK_1 = 0
+val IMAGE_REQUEST_ADAPTER_CLICK_2 = 1
+val IMAGE_REQUEST_ADAPTER_CLICK_3 = 2
+val IMAGE_REQUEST_ADAPTER_CLICK_4 = 3
 
 enum class VIEW {
   LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE, SEARCH, IMAGES
@@ -32,7 +36,6 @@ enum class VIEW {
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
 
   var basePresenter: BasePresenter? = null
-  var toolbarname: String = "Placemark"
 
 
 

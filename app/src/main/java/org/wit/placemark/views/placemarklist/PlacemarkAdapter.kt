@@ -64,6 +64,8 @@ class PlacemarkAdapter constructor(
           placemark.date = ""
         }
       }
+
+
       Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);
       itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
     }

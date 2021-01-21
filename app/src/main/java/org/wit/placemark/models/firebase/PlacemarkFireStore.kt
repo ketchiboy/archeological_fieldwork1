@@ -42,7 +42,12 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             placemark.fbId = key
             placemarks.add(placemark)
             db.child("users").child(userId).child("placemarks").child(key).setValue(placemark)
-            updateImage(placemark)
+
+
+            var index: Int =0
+            placemark.images.forEach {
+                updateImage(placemark,placemark.images.get(index), index) }
+            index++
         }
     }
 
@@ -52,6 +57,7 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             foundPlacemark.title = placemark.title
             foundPlacemark.description = placemark.description
             foundPlacemark.image = placemark.image
+            foundPlacemark.images = placemark.images
             foundPlacemark.location = placemark.location
             foundPlacemark.visited = placemark.visited
             foundPlacemark.date = placemark.date
@@ -62,10 +68,12 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
 
             db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
 
+            var index:Int =0
             placemark.images.forEach{
                 if((it.length) > 0 && (it[0] != 'h')){
-                    updateImage(placemark)
+                    updateImage(placemark, placemark.images.get(index), index)
                 }
+                index++
             }
 
         }
@@ -80,13 +88,42 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             placemarks.clear()
         }
 
-        fun updateImage(placemark: PlacemarkModel) {
+        fun updateImage(placemark: PlacemarkModel, image: String, index: Int) {
+            if(index < placemark.images.size){
+                if(image != ""){
+                    val fileName = File(image)
+                    val imageName = fileName.getName()
 
-             var i :Int =0
-            while (i < placemark.images.size){
+                    var imageRef = st.child(userId + '/' + imageName)
+                    val baos = ByteArrayOutputStream()
+                    val bitmap = readImageFromPath(context, image)
+
+                    bitmap?.let {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                        val data = baos.toByteArray()
+                        val uploadTask = imageRef.putBytes(data)
+                        uploadTask.addOnFailureListener {
+                            println(it.message)
+                        }.addOnSuccessListener { taskSnapshot ->
+                            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                                if(!placemark.images.contains(it.toString())){
+                                    placemark.images.set(index, it.toString())
+                                }
+
+                                db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+
+            }
+           /* while (i < placemark.images.size){
                 if (placemark.images.get(i) != "") {
                     val fileName = File(placemark.images.get(i))
-                    val debug :String = placemark.images.get(i)
                     val imageName = fileName.getName()
 
                     var imageRef = st.child(userId + '/' + imageName)
@@ -101,17 +138,17 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
                             println(it.message)
                         }.addOnSuccessListener { taskSnapshot ->
                             taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                                placemark.images.add(it.toString())
+                                if(!placemark.images.contains(it.toString())){
+                                    placemark.images.add(it.toString())
+                                }
+
                                 db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
                             }
                         }
                     }
                 }
                 i++
-            }
-
-
-        }
+            } */
 
 
         fun fetchPlacemarks(placemarksReady: () -> Unit) {
