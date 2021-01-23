@@ -12,7 +12,6 @@ import org.wit.placemark.models.Location
 
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.favorites.FavoriteListView
-import org.wit.placemark.views.images.ImageView
 import org.wit.placemark.views.location.EditLocationView
 import org.wit.placemark.views.map.PlacemarkMapView
 import org.wit.placemark.views.placemark.PlacemarkView
@@ -30,7 +29,7 @@ val IMAGE_REQUEST_ADAPTER_CLICK_3 = 2
 val IMAGE_REQUEST_ADAPTER_CLICK_4 = 3
 
 enum class VIEW {
-  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE, SEARCH, IMAGES
+  LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE, SEARCH
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -55,7 +54,6 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
       VIEW.SETTINGS -> intent = Intent(this, settingsview::class.java)
       VIEW.FAVORITE -> intent = Intent(this, FavoriteListView::class.java)
       VIEW.SEARCH -> intent = Intent(this, SearchListView::class.java)
-      VIEW.IMAGES -> intent = Intent(this, ImageView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)

@@ -49,24 +49,9 @@ class PlacemarkAdapter constructor(
       itemView.placemarkTitle.text = placemark.title
       itemView.description.text = placemark.description
       itemView.checkBox2.isChecked = placemark.visited
-      itemView.checkBox2.setOnCheckedChangeListener { buttonView, isChecked ->
-        if (isChecked) {
-          placemark.visited = true
-          if(placemark.date == ""){
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
-            val currentDate = sdf.format(Date())
-
-            placemark.date = currentDate.toString()
-          }
-
-        }else{
-          placemark.visited = false
-          placemark.date = ""
-        }
+      if(placemark.images.isNotEmpty()){
+        Glide.with(itemView.context).load(placemark.images.get(0)).into(itemView.imageIcon);
       }
-
-
-      Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);
       itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
     }
   }

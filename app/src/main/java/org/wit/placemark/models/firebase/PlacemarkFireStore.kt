@@ -69,12 +69,15 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
 
             var index:Int =0
-            placemark.images.forEach{
-                if((it.length) > 0 && (it[0] != 'h')){
-                    updateImage(placemark, placemark.images.get(index), index)
+            if(!placemark.images.isEmpty()){
+                placemark.images.forEach{
+                    if((it.length) > 0 && (it[0] != 'h')){
+                        updateImage(placemark, placemark.images.get(index), index)
+                    }
+                    index++
                 }
-                index++
             }
+
 
         }
     }
@@ -121,34 +124,6 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
             }
 
             }
-           /* while (i < placemark.images.size){
-                if (placemark.images.get(i) != "") {
-                    val fileName = File(placemark.images.get(i))
-                    val imageName = fileName.getName()
-
-                    var imageRef = st.child(userId + '/' + imageName)
-                    val baos = ByteArrayOutputStream()
-                    val bitmap = readImageFromPath(context, placemark.images.get(i))
-
-                    bitmap?.let {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                        val data = baos.toByteArray()
-                        val uploadTask = imageRef.putBytes(data)
-                        uploadTask.addOnFailureListener {
-                            println(it.message)
-                        }.addOnSuccessListener { taskSnapshot ->
-                            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                                if(!placemark.images.contains(it.toString())){
-                                    placemark.images.add(it.toString())
-                                }
-
-                                db.child("users").child(userId).child("placemarks").child(placemark.fbId).setValue(placemark)
-                            }
-                        }
-                    }
-                }
-                i++
-            } */
 
 
         fun fetchPlacemarks(placemarksReady: () -> Unit) {

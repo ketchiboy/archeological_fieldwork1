@@ -26,5 +26,10 @@
         android:title="@string/favorite"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/item_search"
+        android:title="@string/search"
+        app:showAsAction="never" />
+
 
 </menu>

@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -97,6 +98,17 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
 
     }
 
+    deleteAllimages.setOnClickListener {
+
+      var i: Int =0
+      while(i<placemark.images.size){
+        presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
+        presenter.placemark.images.set(i, "")
+        i++
+      }
+      showPlacemark(placemark)
+    }
+
 
     shareinfo.setOnClickListener {
       val emailadress: String = emailadressshare.text.toString()
@@ -120,13 +132,8 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
     if (simpleRatingBar.rating == 0F) simpleRatingBar.rating = placemark.rating
     favorite.isChecked = placemark.favorite
 
-
-
-
-    Glide.with(this).load(placemark.image).into(placemarkImage);
-
-    if (placemark.image != null) {
-      chooseImage.setText(R.string.change_placemark_image)
+    if (placemark.images.size == 4) {
+      chooseImage.visibility = View.INVISIBLE
     }
     this.showLocation(placemark.location)
   }
@@ -162,6 +169,7 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
         navigateTo(VIEW.SETTINGS)
       }
       R.id.item_favorites -> presenter.doFavorites()
+      R.id.item_search -> presenter.doSearch()
 
     }
     return super.onOptionsItemSelected(item)

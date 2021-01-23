@@ -130,6 +130,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   fun doDelete() {
     doAsync {
       app.placemarks.delete(placemark)
+      
       uiThread {
         view?.finish()
       }

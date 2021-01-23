@@ -44,4 +44,5 @@
   <string name="shareinfo">Share Site Information</string>
   <string name="showallimages">Show all images</string>
   <string name="emailadresssharing">Put email adress to share information here</string>
+  <string name="deleteall">Delete all images</string>
 </resources>
