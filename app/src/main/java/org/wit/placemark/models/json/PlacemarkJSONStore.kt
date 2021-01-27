@@ -56,8 +56,14 @@ class PlacemarkJSONStore : PlacemarkStore, AnkoLogger {
     if (foundPlacemark != null) {
       foundPlacemark.title = placemark.title
       foundPlacemark.description = placemark.description
-      foundPlacemark.image = placemark.image
       foundPlacemark.location = placemark.location
+      foundPlacemark.images = placemark.images
+      foundPlacemark.favorite = placemark.favorite
+      foundPlacemark.rating = placemark.rating
+      foundPlacemark.notes = placemark.notes
+      foundPlacemark.date = placemark.date
+      foundPlacemark.visited = placemark.visited
+
     }
     serialize()
   }

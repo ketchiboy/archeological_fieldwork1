@@ -14,7 +14,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
+import org.wit.placemark.R
 import org.wit.placemark.helpers.checkLocationPermissions
 import org.wit.placemark.helpers.createDefaultLocationRequest
 import org.wit.placemark.helpers.isPermissionGranted
@@ -22,6 +24,8 @@ import org.wit.placemark.helpers.showImagePicker
 import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.*
+import kotlin.math.absoluteValue
+import android.widget.Toast.makeText as makeText1
 
 class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 
@@ -32,6 +36,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   var locationManualyChanged = false;
   var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
   val locationRequest = createDefaultLocationRequest()
+  var currentlocation = defaultLocation
 
   init {
     if (view.intent.hasExtra("placemark_edit")) {
@@ -49,6 +54,8 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   fun doSetCurrentLocation() {
     locationService.lastLocation.addOnSuccessListener {
       locationUpdate(Location(it.latitude, it.longitude))
+      currentlocation.lat = it.latitude
+      currentlocation.lng = it.longitude
     }
   }
 
@@ -60,6 +67,8 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
           val l = locationResult.locations.last()
           if (!locationManualyChanged) {
             locationUpdate(Location(l.latitude, l.longitude))
+            currentlocation.lat = l.latitude
+            currentlocation.lng = l.longitude
           }
         }
       }
@@ -76,6 +85,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       locationUpdate(defaultLocation)
     }
   }
+
 
 
   fun cachePlacemark (title: String, description: String, checked: Boolean, time: String, notes: String, rating: Float, favorite: Boolean) {
@@ -146,10 +156,51 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 
   }
 
-
   fun doSetLocation() {
     locationManualyChanged = true;
     view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(placemark.location.lat, placemark.location.lng, placemark.location.zoom))
+  }
+
+ fun doNavigatetoSite(){
+
+   val Diff: Double = 0.001
+   val longitudeDifference = (currentlocation.lng - placemark.location.lng).absoluteValue
+   val latitudeDifference = (currentlocation.lat - placemark.location.lat).absoluteValue
+
+   if( latitudeDifference < Diff && longitudeDifference < Diff){
+     view?.toast(R.string.samelocation.toString())
+     gobacktoList()
+   }
+   val IntentUriNavigation = Uri.parse("google.navigation:q=${placemark.location.lat},${placemark.location.lng}")
+   val mapIntent = Intent(Intent.ACTION_VIEW, IntentUriNavigation)
+   mapIntent.setPackage("com.google.android.apps.maps")
+   view?.startActivity(mapIntent)
+
+
+ }
+
+  fun doSendEmail(recipient: String, subject: String, message: String) {
+
+    val mIntent = Intent(Intent.ACTION_SEND)
+
+    mIntent.data = Uri.parse("mailto:")
+    mIntent.type = "text/plain"
+
+    mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+
+    mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+
+    mIntent.putExtra(Intent.EXTRA_TEXT, message)
+
+
+    try {
+
+      view?.startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
+    }
+    catch (e: Exception){
+      view?.toast(R.string.couldnotsendemail.toString())
+    }
+
   }
 
 
@@ -186,6 +237,12 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       IMAGE_REQUEST_ADAPTER_CLICK_4 -> {
         placemark.images.set(requestCode, data.data.toString())
         view?.showPlacemark(placemark)
+
+      }
+      REQUEST_IMAGE_CAPTURE -> {
+        if(placemark.images.size == 4)
+        placemark.images.add(data.data.toString())
+        
 
       }
     }

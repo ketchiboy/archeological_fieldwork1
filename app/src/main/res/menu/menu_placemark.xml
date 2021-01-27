@@ -31,5 +31,10 @@
         android:title="@string/search"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/item_navigateto"
+        android:title="@string/navigateto"
+        app:showAsAction="never" />
+
 
 </menu>

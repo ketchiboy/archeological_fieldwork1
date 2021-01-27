@@ -35,7 +35,8 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
   override fun showPlacemark(placemark: PlacemarkModel) {
     currentTitle.text = placemark.title
     currentDescription.text = placemark.description
-    Glide.with(this).load(placemark.image).into(currentImage);
+    if(placemark.images.isNotEmpty())
+    Glide.with(this).load(placemark.images.get(0)).into(currentImage);
   }
 
   override fun showPlacemarks(placemarks: List<PlacemarkModel>) {

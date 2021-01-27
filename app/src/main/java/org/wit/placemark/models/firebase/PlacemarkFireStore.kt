@@ -56,7 +56,6 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
         if (foundPlacemark != null) {
             foundPlacemark.title = placemark.title
             foundPlacemark.description = placemark.description
-            foundPlacemark.image = placemark.image
             foundPlacemark.images = placemark.images
             foundPlacemark.location = placemark.location
             foundPlacemark.visited = placemark.visited
@@ -92,6 +91,7 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
         }
 
         fun updateImage(placemark: PlacemarkModel, image: String, index: Int) {
+
             if(index < placemark.images.size){
                 if(image != ""){
                     val fileName = File(image)

@@ -45,4 +45,8 @@
   <string name="showallimages">Show all images</string>
   <string name="emailadresssharing">Put email adress to share information here</string>
   <string name="deleteall">Delete all images</string>
+  <string name="selectfromcamera">Select image from camera</string>
+  <string name="navigateto">Navigate to Hillfort</string>
+  <string name="couldnotsendemail">Could not send E-Mail</string>
+  <string name="samelocation">Can not Navigate to Site, because Site is the same as the current location</string>
 </resources>

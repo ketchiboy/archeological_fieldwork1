@@ -67,7 +67,8 @@ class FavoriteAdapter constructor(
                         placemark.date = ""
                     }
                 }
-                Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);
+            if(placemark.images.isNotEmpty())
+                Glide.with(itemView.context).load(placemark.images.get(0)).into(itemView.imageIcon);
                 itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
             }
         }

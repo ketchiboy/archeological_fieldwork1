@@ -1,28 +1,36 @@
 package org.wit.placemark.views.placemark
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
+import org.wit.placemark.BuildConfig
 import org.wit.placemark.R
 import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
-import org.wit.placemark.views.BaseView
-import org.wit.placemark.views.IMAGE_REQUEST
-import org.wit.placemark.views.VIEW
+import org.wit.placemark.views.*
+import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.jar.Manifest
 
 
 class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
@@ -30,6 +38,7 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
   lateinit var presenter: PlacemarkPresenter
   var placemark = PlacemarkModel()
   lateinit var map: GoogleMap
+  lateinit var currentPhotoPath: String
 
 
 
@@ -87,9 +96,7 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
       it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
-    /*showallimages.setOnClickListener {
-      presenter.doImageView()
-    } */
+
 
 
     chooseImage.setOnClickListener {
@@ -98,23 +105,49 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
 
     }
 
-    deleteAllimages.setOnClickListener {
-
-      var i: Int =0
-      while(i<placemark.images.size){
-        presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
-        presenter.placemark.images.set(i, "")
-        i++
-      }
-      showPlacemark(placemark)
-    }
 
 
     shareinfo.setOnClickListener {
       val emailadress: String = emailadressshare.text.toString()
       val information: String = "link to coordinates: " + "http://maps.google.com?q=" + lat.text.toString() + "," + lng.text.toString()
-      sendEmail(emailadress, placemarkTitle.text.toString() + " " + description.text.toString(), information)
+      presenter.doSendEmail(emailadress, placemarkTitle.text.toString() + " " + description.text.toString(), information)
 
+    }
+
+    openCamera.setOnClickListener {
+      openCamera()
+    }
+  }
+
+  fun openCamera(){
+    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+      intent.resolveActivity(packageManager)?.also {
+        val photoFile: File? = try {
+          createCapturedPhoto()
+        } catch (ex: IOException) {
+          // If there is error while creating the File, it will be null
+          null
+        }
+        photoFile?.also {
+          val photoURI = FileProvider.getUriForFile(
+                  this,
+                  "${BuildConfig.APPLICATION_ID}.fileprovider",
+                  it
+          )
+          intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+          startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+        }
+      }
+    }
+
+  }
+
+  @Throws(IOException::class)
+  private fun createCapturedPhoto(): File {
+    val timestamp: String = SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date())
+    val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    return File.createTempFile("PHOTO_${timestamp}",".jpg", storageDir).apply {
+      currentPhotoPath = absolutePath
     }
   }
 
@@ -170,6 +203,7 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
       }
       R.id.item_favorites -> presenter.doFavorites()
       R.id.item_search -> presenter.doSearch()
+      R.id.item_navigateto -> presenter.doNavigatetoSite()
 
     }
     return super.onOptionsItemSelected(item)
@@ -206,6 +240,15 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
     super.onResume()
     mapView.onResume()
     presenter.doResartLocationUpdates()
+    checkCameraPermission()
+  }
+  private fun checkCameraPermission() {
+    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this,
+              arrayOf(android.Manifest.permission.CAMERA),
+              REQUEST_PERMISSION)
+    }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -213,34 +256,11 @@ class PlacemarkView : BaseView(), AnkoLogger, HillfortClickListener {
     mapView.onSaveInstanceState(outState)
   }
 
-  private fun sendEmail(recipient: String, subject: String, message: String) {
 
-    val mIntent = Intent(Intent.ACTION_SEND)
-
-    mIntent.data = Uri.parse("mailto:")
-    mIntent.type = "text/plain"
-
-    mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-
-    mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-
-    mIntent.putExtra(Intent.EXTRA_TEXT, message)
-
-
-    try {
-
-      startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
-    }
-    catch (e: Exception){
-      Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-    }
-
-  }
 
   override fun onImageClick(image: String, index: Int) {
     presenter.cachePlacemark(placemarkTitle.text.toString(), description.text.toString(), checkBox.isChecked, visiteddate.text.toString(), additionalnotes.text.toString(), simpleRatingBar.rating, favorite.isChecked)
     presenter.doSelectImage(index)
-    //placemark.images.get(index)
 
 
   }
