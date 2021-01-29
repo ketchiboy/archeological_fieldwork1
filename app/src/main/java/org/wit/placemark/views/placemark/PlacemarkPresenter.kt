@@ -36,7 +36,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   var locationManualyChanged = false;
   var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
   val locationRequest = createDefaultLocationRequest()
-  var currentlocation = defaultLocation
+  var currentlocation = Location(defaultLocation.lat, defaultLocation.lng)
 
   init {
     if (view.intent.hasExtra("placemark_edit")) {
@@ -107,6 +107,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     placemark.location = location
     placemark.location.zoom = 15f
     map?.clear()
+    map?.uiSettings?.setZoomControlsEnabled(true)
     val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.location.lat, placemark.location.lng))
     map?.addMarker(options)
     map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.location.lat, placemark.location.lng), placemark.location.zoom))

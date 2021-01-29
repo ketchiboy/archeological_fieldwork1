@@ -49,4 +49,5 @@
   <string name="navigateto">Navigate to Hillfort</string>
   <string name="couldnotsendemail">Could not send E-Mail</string>
   <string name="samelocation">Can not Navigate to Site, because Site is the same as the current location</string>
+  <string name="hillforts">Hillforts</string>
 </resources>

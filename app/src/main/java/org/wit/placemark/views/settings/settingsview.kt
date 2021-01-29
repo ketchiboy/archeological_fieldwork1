@@ -52,9 +52,7 @@ class settingsview : BaseView(), PlacemarkListener {
             R.id.item_save -> {
                 if (emailupdate.text.toString().equals(user?.email.toString()) ) {
                     toast("Email wurde nicht geändert")
-                } else if (emailupdate.text.toString().isEmpty()){
-
-                }else{
+                } else{
                     user?.updateEmail(emailupdate.text.toString())
                 }
                 if(passwordupdate.text.toString().isNotEmpty()){

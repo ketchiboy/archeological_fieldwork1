@@ -6,7 +6,6 @@ import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.wit.placemark.models.Location
 
@@ -29,7 +28,7 @@ val IMAGE_REQUEST_ADAPTER_CLICK_3 = 2
 val IMAGE_REQUEST_ADAPTER_CLICK_4 = 3
 val REQUEST_PERMISSION = 100
 val REQUEST_IMAGE_CAPTURE = 7
-val REQUEST_PICK_IMAGE = 8
+
 
 enum class VIEW {
   LOCATION, PLACEMARK, MAPS, LIST, LOGIN, SPLASH, SETTINGS, FAVORITE, SEARCH
